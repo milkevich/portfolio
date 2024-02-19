@@ -1,0 +1,140 @@
+.headerContainer {
+    font-size: 2vw;
+    font-weight: 600;
+    padding: 1vw;
+    min-height: 100vh;
+    background-color: var(--main-bg-color);
+    color: var(--main-color);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    margin: auto;
+  }
+  
+  .headerContent {
+    display: flex;
+    margin-top: -4vh;
+    gap: 73vw;
+  }
+
+  .headerContentDownload {
+    flex: 1;
+    cursor: pointer;
+  }
+
+  .headerContentDownload:hover {
+    color: var(--accent-color);
+  }
+
+  .headerContentGetInTouch {
+    text-align: right;
+    flex: 3;
+  }
+
+  .headerContentGetInTouch:hover {
+    color: var(--accent-color);
+    cursor: pointer;
+  }
+  
+  .mainContent {
+    display: flex;
+    position: relative;
+    top: 13vh;
+  }
+
+  .mainContentText {
+    position: relative;
+    top: -4vh;
+    flex: 1;
+  }
+
+  .mainContentBtnsContainer {
+    display: flex;
+    align-items: end;
+    padding-top:39vh;
+  }
+  
+  .mainContentP {
+    text-align: left;
+    min-height: 20vh;
+  }
+  
+  .mainContentPContainer {
+    text-align: right;
+    overflow: hidden;
+    height: 5vh;
+    width: 56vw;
+    position: relative;
+  }
+  
+  .mainContentPContainerText {
+    animation: slideUp 0.6s ease-in-out; 
+    position: absolute; 
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+  
+  .mainContentProjectsBtn {
+    margin-top: 3.7vh;
+  }
+  
+  .mainContentProjectsBtn:hover .mainContentProjectsBtnArrow {
+    transform: translateX(1vw);
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+  }
+  
+  .mainContentProjectsBtn span {
+    display: inline-block;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+
+  }
+  
+  .mainContentLinks {
+    line-height: 0.1;
+    text-align: right;
+    position: relative;
+    flex: 1;
+    bottom: 1.5vh;
+  }
+
+  .mainContentImgContainer {
+    width: 75vh;
+    height: 75vh;
+    overflow: hidden;
+    position: relative;
+    margin-left: 1vw;
+  }
+  
+  .mainContentImg {
+    width: 78vh;
+    height: 75vh;
+    background-color: darkgrey;
+    position: absolute;
+    animation: slideInFromLeft 0.7s ease-out;
+  }
+  
+  .linkHover:hover {
+    color: var(--accent-color);
+    cursor: pointer;
+  }
+
+  @keyframes slideInFromLeft {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideUp {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }

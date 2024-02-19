@@ -1,0 +1,41 @@
+.percentage {
+    font-size: 20vw;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    right: 18vw;
+}
+
+.percentage span {
+    position: absolute;
+    margin-left: 40vw;
+    margin-bottom: 18vh;
+    font-size: 5vw;
+}
+
+.vl {
+    width: 0.1vw;
+    background-color: var(--main-color);
+    z-index: 100;
+    position: absolute;
+    bottom: 1.5vh;
+    left: 58.1vw;
+}
+
+.leave {
+    animation: slideUp 0.5s ease-in-out;
+}
+
+@keyframes slideUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+}
