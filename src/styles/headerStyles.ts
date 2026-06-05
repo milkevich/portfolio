@@ -69,6 +69,7 @@ export const descriptionCss = {
   gap: "0.75rem",
   maxWidth: "300px",
   textTransform: "uppercase",
+  minHeight: 141,
   "@media (max-width: 1150px)": {
     maxWidth: "550px",
   },

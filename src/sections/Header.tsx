@@ -55,49 +55,48 @@ export const Header = () => {
           <Tooltip placement="bottom">
             <TooltipTrigger>
               <a css={linkCss} href={CV} download="CV_Gleb_Milkevich.pdf">
-                <Typewriter speed={150} text="DOWNLOAD" />
+                <Typewriter delay={800} speed={150} text="DOWNLOAD" />
               </a>
             </TooltipTrigger>
             <TooltipContent>Download in .pdf</TooltipContent>
           </Tooltip>
 
           <a css={linkCss} href="#work" onClick={(e) => handleSmoothScroll(e, 'work')}>
-            <Typewriter shuffleSpeed={100} speed={50} text="WORK" />
+            <Typewriter delay={800} shuffleSpeed={100} speed={50} text="WORK" />
           </a>
 
           <a css={linkCss} href="#contact" onClick={(e) => handleSmoothScroll(e, 'contact')}>
-            <Typewriter speed={150} text="CONTACT" />
+            <Typewriter delay={800} speed={150} text="CONTACT" />
           </a>
         </div>
 
         <div css={descriptionCss}>
           <span css={greyTextCss}>
-            H<Typewriter isHoverable={false} speed={100} text="i, I am" />
+            <Typewriter delay={800} isHoverable={false} speed={100} text="Hi, I am" />
           </span>
           <span>
-            G<Typewriter isHoverable={false} speed={20} text="leb, a frontend engineer focused on React, TypeScript, design systems, and polished product experiences. Creator of" />
+            <Typewriter delay={800} isHoverable={false} speed={20} text="Gleb, a frontend engineer focused on React, TypeScript, design systems, and polished product experiences. Creator of" />
             <Tooltip placement="bottom">
               <TooltipTrigger>
                 <a css={linkCss} href="https://plainframe-ui.com" target="_blank" rel="noopener noreferrer">
-                  <Typewriter delay={2000} speed={30} text="Plainframe UI" />
+                  <Typewriter delay={2800} speed={30} text="Plainframe UI." />
                 </a>
               </TooltipTrigger>
               <TooltipContent>Go to Plainframe UI</TooltipContent>
             </Tooltip>
-            .
           </span>
         </div>
 
         <div css={descriptionCss}>
           <span css={greyTextCss}>
-            S<Typewriter isHoverable={false} speed={200} text="ocials" />
+            <Typewriter delay={800} isHoverable={false} speed={200} text="Socials" />
           </span>
           <div css={socialLinksCss}>
             {socials.map(({ href, text, firstChar }) => (
               <Tooltip key={href} placement="bottom">
                 <TooltipTrigger>
                   <a href={href} css={baseLinkCss} target="_blank" rel="noopener noreferrer">
-                    {firstChar}<Typewriter isHoverable text={text.slice(1)} speed={150} />
+                    <Typewriter delay={800} isHoverable text={text} speed={150} />
                   </a>
                 </TooltipTrigger>
                 <TooltipContent>Visit {text}</TooltipContent>
