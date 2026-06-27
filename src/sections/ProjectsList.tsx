@@ -74,7 +74,7 @@ const projects = [
         number: "01/05",
         title: "Plainframe UI",
         image: pfui,
-        link: "https://plainframe.com",
+        link: "https://plainframe-ui.com",
         linkLabel: "DEMO",
         tooltip: "Visit Plainframe UI",
         description: "Plainframe UI is a React component library designed to help developers build beautiful, accessible, and responsive user interfaces faster and more efficiently.",
