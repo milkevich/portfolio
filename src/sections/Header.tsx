@@ -17,6 +17,7 @@ import {
   headerContainerCss,
 } from '../styles/headerStyles'
 import Typewriter from '../shared/UI/Typewriter'
+import PixelBlast from '../shared/UI/pixel-blast/PixelBlast'
 
 const socials = [
   { href: 'https://linkedin.com/in/milkevich', text: 'LinkedIn', firstChar: 'L' },
@@ -50,6 +51,27 @@ export const Header = () => {
 
   return (
     <div css={headerContainerCss}>
+      <div css={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}>
+        <PixelBlast
+          variant="square"
+          pixelSize={4}
+          color="#d0d0d0"
+          patternScale={3}
+          patternDensity={1.5}
+          pixelSizeJitter={0}
+          enableRipples
+          rippleSpeed={0.4}
+          rippleThickness={0.12}
+          rippleIntensityScale={1.5}
+          liquid={false}
+          liquidStrength={0.12}
+          liquidRadius={1.2}
+          liquidWobbleSpeed={5}
+          speed={0.5}
+          edgeFade={0.25}
+          transparent
+        />
+      </div>
       <div css={containerCss}>
         <div css={linksContainerCss}>
           <Tooltip placement="bottom">

@@ -7,6 +7,7 @@ import { Header } from "./sections/Header"
 import { ProjectsList } from "./sections/ProjectsList"
 import Intro from "./sections/Intro"
 import { outerContainerCss } from "./styles/headerStyles"
+import ClickSpark from "./shared/UI/ClickSpark"
 
 function App() {
   const [showIntro, setShowIntro] = useState(true)
@@ -35,7 +36,7 @@ function App() {
       },
     })
 
-    ;(window as any).locoScroll = scroll
+      ; (window as any).locoScroll = scroll
 
     setTimeout(() => {
       scroll.resize()
@@ -65,8 +66,16 @@ function App() {
         if (animateIn && e.propertyName === "opacity" && e.target === e.currentTarget) setTransitionDone(true)
       }}
     >
-      <Header />
-      <ProjectsList />
+      <ClickSpark
+        sparkColor="#000000"
+        sparkSize={5}
+        sparkRadius={35}
+        sparkCount={10}
+        duration={500}
+      >
+        <Header />
+        <ProjectsList />
+      </ClickSpark>
     </div>
   )
 }
