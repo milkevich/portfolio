@@ -97,7 +97,7 @@ export const Header = () => {
             <Typewriter delay={800} isHoverable={false} speed={100} text="Hi, I am" />
           </span>
           <span>
-            <Typewriter delay={800} isHoverable={false} speed={20} text="Gleb, a frontend engineer focused on React, TypeScript, design systems, and polished product experiences. Creator of" />
+            <Typewriter delay={800} isHoverable={false} speed={20} text="Gleb, a frontend engineer focused on React, TypeScript, design systems, and polished product experiences. Creator of " />
             <Tooltip placement="bottom">
               <TooltipTrigger>
                 <a css={linkCss} href="https://plainframe-ui.com" target="_blank" rel="noopener noreferrer">

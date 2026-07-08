@@ -14,6 +14,9 @@ export const headerContainerCss = {
   maxWidth: "1520px",
   margin: "0 auto",
   zIndex: 1,
+  "@media (max-width: 600px)": {
+    height: "100svh",
+  },
 }
 
 export const containerCss = {
@@ -25,6 +28,11 @@ export const containerCss = {
   position: "relative",
   zIndex: 2,
   textTransform: "uppercase",
+  "@media (max-width: 600px)": {
+    height: "auto",
+    justifyContent: "flex-start",
+    gap: "1.35rem",
+  },
 }
 
 export const greyTextCss = {
@@ -73,6 +81,10 @@ export const descriptionCss = {
   "@media (max-width: 1150px)": {
     maxWidth: "550px",
   },
+  "@media (max-width: 600px)": {
+    minHeight: "auto",
+    gap: "0.45rem",
+  },
 }
 
 export const socialLinksCss = {
@@ -99,15 +111,16 @@ export const heroImageCss = {
     margin: "0 auto",
   },
   "@media (max-width: 500px)": {
-    left: "auto",
+    left: "-40px",
+    maxHeight: "70svh",
   },
   "@media (max-width: 450px)": {
-    maxWidth: "550px",
-    left: "-40px",
+    left: "-5px",
+    maxHeight: "55svh",
   },
   "@media (max-width: 385px)": {
     maxWidth: "500px",
-    left: "auto",
+    left: "-40px",
   },
 }
 
