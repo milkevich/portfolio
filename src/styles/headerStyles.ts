@@ -21,11 +21,11 @@ export const headerContainerCss = {
 
 export const containerCss = {
   display: "flex",
-  flexDirection: "column",
+  flexDirection: "column" as const,
   padding: "0.75rem",
   height: "calc(100vh - 1.5rem)",
   justifyContent: "space-between",
-  position: "relative",
+  position: "relative" as const,
   zIndex: 2,
   textTransform: "uppercase",
   "@media (max-width: 600px)": {
@@ -73,7 +73,7 @@ export const linkCss = {
 export const descriptionCss = {
   display: "flex",
   fontWeight: 500,
-  flexDirection: "column",
+  flexDirection: "column" as const,
   gap: "0.75rem",
   maxWidth: "300px",
   textTransform: "uppercase",
@@ -100,12 +100,12 @@ export const heroImageCss = {
   position: "absolute" as const,
   bottom: 0,
   left: "53%",
-  userSelect: "none",
+  userSelect: "none" as const,
   zIndex: 1,
   transform: "translateX(-50%)",
   "@media (max-width: 1150px)": {
     maxWidth: "600px",
-    position: "relative",
+    position: "relative" as const,
     transform: "none",
     left: "auto",
     margin: "0 auto",
@@ -127,10 +127,10 @@ export const heroImageCss = {
 export const blackSectionCss = {
   backgroundColor: "black",
   zIndex: 10,
-  position: "relative",
+  position: "relative" as const,
   color: "white",
   display: "flex",
-  flexDirection: "column",
+  flexDirection: "column" as const,
   gap: "5rem",
   paddingBottom: "5rem",
   width: "100%",
@@ -140,7 +140,7 @@ export const blackSectionCss = {
 export const whiteProjectsSectionCss = {
   backgroundColor: "white",
   zIndex: 10,
-  position: "relative",
+  position: "relative" as const,
   maxWidth: "1520px",
   margin: "0 auto",
 }
@@ -156,7 +156,7 @@ export const projectLeftCss = {
   borderRight: "1px solid #E5E5E5",
   padding: "1rem",
   display: "flex",
-  flexDirection: "column",
+  flexDirection: "column" as const,
   justifyContent: "space-between",
 }
 
@@ -169,7 +169,7 @@ export const projectLeftReverseCss = {
   borderRight: "none",
   padding: "1rem",
   display: "flex",
-  flexDirection: "column",
+  flexDirection: "column" as const,
   justifyContent: "space-between",
 }
 

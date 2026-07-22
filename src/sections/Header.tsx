@@ -114,7 +114,7 @@ export const Header = () => {
             <Typewriter delay={800} isHoverable={false} speed={200} text="Socials" />
           </span>
           <div css={socialLinksCss}>
-            {socials.map(({ href, text, firstChar }) => (
+            {socials.map(({ href, text }) => (
               <Tooltip key={href} placement="bottom">
                 <TooltipTrigger>
                   <a href={href} css={baseLinkCss} target="_blank" rel="noopener noreferrer">
