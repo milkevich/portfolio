@@ -3,7 +3,7 @@ import pfui from "../assets/mockups/pfui.png"
 import socialMedia from "../assets/mockups/socialmedia.png"
 import mindMerge from "../assets/mockups/mindmerge.png"
 import eventPlanner from "../assets/mockups/eventplanner.png"
-import chat from "../assets/mockups/chat.png"
+import routeveil from "../assets/mockups/routeveil.png"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../shared/UI/Tooltip"
 
 import {
@@ -82,6 +82,16 @@ const projects = [
     },
     {
         number: "02/05",
+        title: "Routeveil",
+        image: routeveil,
+        link: "https://routeveil.dev",
+        linkLabel: "DEMO",
+        tooltip: "Visit RouteVeil",
+        description: "Routeveil is a React transition library designed to help developers produce smooth, customizable, and responsive route transitions faster and more efficiently.",
+        date: "JUL 2026",
+    },
+        {
+        number: "03/05",
         title: "Social Media Platform",
         image: socialMedia,
         link: "https://github.com/milkevich/expo-pract",
@@ -91,7 +101,7 @@ const projects = [
         date: "JUL 2024",
     },
     {
-        number: "03/05",
+        number: "04/05",
         title: "Mind Merge",
         image: mindMerge,
         link: "https://milkevich.github.io/mind-merge",
@@ -101,7 +111,7 @@ const projects = [
         date: "MAR 2024",
     },
     {
-        number: "04/05",
+        number: "05/05",
         title: "Event Planner",
         image: eventPlanner,
         link: "https://milkevich.github.io/event-planner",
@@ -109,16 +119,6 @@ const projects = [
         tooltip: "Visit Event Planner",
         description: "An event planning and productivity application built with React, SCSS, and Firebase. Users can organize tasks, manage events, and track daily activities using customizable color-coded categories and flexible sorting options.",
         date: "FEB 2024",
-    },
-    {
-        number: "05/05",
-        title: "Realtime Chat",
-        image: chat,
-        link: "https://github.com/milkevich/pract-project",
-        linkLabel: "REPO",
-        tooltip: "Visit Realtime Chat",
-        description: "A real-time messaging platform built with React, Vite, and Firebase that allows users to exchange messages, share media, and communicate instantly.",
-        date: "DEC 2023",
     },
 ]
 
