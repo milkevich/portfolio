@@ -1,0 +1,42 @@
+.main-container {
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow-back-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    padding: 24px;
+    cursor: pointer;
+}
+
+
+.arrow-back-container svg {
+    transition: transform 200ms ease-in-out;
+}
+
+.arrow-back-container:hover svg {
+    transform: translateX(-5px);
+}
+
+.main-container h1 {
+    font-size: clamp(3rem, 5vw, 8rem);
+    letter-spacing: -0.1em;
+    font-family: monospace;
+    font-weight: 400;
+    color: var(--foreground-color);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .arrow-back-container svg {
+        transition: none;
+    }
+
+    .arrow-back-container:hover svg {
+        transform: none;
+    }
+}

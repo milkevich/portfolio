@@ -1,0 +1,115 @@
+.header-container {
+    padding-top: 48px;
+}
+
+.header-container img {
+    display: block;
+
+    width: 48px;
+    height: 48px;
+
+    object-fit: cover;
+    background: var(--border-color);
+    border-radius: 9999px;
+}
+
+.home-reveal:first-child .section-container {
+    margin-top: 24px;
+}
+
+.section-container {
+    margin: 0 0 48px;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    line-height: 1.5rem;
+    letter-spacing: -0.025em;
+}
+
+.section-container h1,
+.section-container h2 {
+    margin: 0 0 4px;
+    padding: 0;
+
+    color: var(--foreground-color);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    letter-spacing: -0.025em;
+}
+
+.section-container p {
+    margin: 0;
+    padding: 0;
+
+    color: var(--muted-color);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5rem;
+    letter-spacing: -0.025em;
+}
+
+.section-container a {
+    width: fit-content;
+    margin: 0;
+    padding: 0;
+
+    color: var(--muted-color);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5rem;
+    letter-spacing: -0.025em;
+
+    text-decoration-line: underline;
+    text-decoration-color: var(--border-color);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 2px;
+
+    transition: color 150ms ease;
+}
+
+.section-container a:hover {
+    color: var(--foreground-color);
+}
+
+.home-reveal {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(8px);
+
+    animation: home-enter 520ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    will-change: opacity, filter, transform;
+}
+
+@keyframes home-enter {
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 640px) {
+    .header-container {
+        padding-top: 40px;
+    }
+
+    .home-reveal:first-child .section-container {
+        margin-top: 32px;
+    }
+
+    .section-container {
+        margin-bottom: 44px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .home-reveal {
+        opacity: 1;
+        filter: none;
+        transform: none;
+        animation: none;
+    }
+}
