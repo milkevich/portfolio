@@ -3,6 +3,7 @@ import './Home.css'
 import hero from '../../assets/hero.webp'
 import Footer from '../../shared/UI/Footer'
 import { RouteveilLink } from 'routeveil/react-router'
+import CV from "../../assets/CV_Gleb_Milkevich.pdf"
 
 const revealStyle = (index: number): CSSProperties => ({
     animationDelay: `${index * 80}ms`,
@@ -26,11 +27,10 @@ function Home() {
                 <section className="section-container home-reveal" style={revealStyle(1)} aria-labelledby="today-heading">
                     <h2 id="today-heading">Today</h2>
                     <p>
-                        I design and build thoughtful interfaces for ambitious products.
+                        I design and build polished interfaces with React and TypeScript.
                         Currently a founding engineer at{' '}
                         <a href="https://flickhuntapp.com/">Flickhunt</a> and building{' '}
-                        <a href="https://routeveil.dev">Routeveil</a>, an open-source React
-                        library.
+                        <a href="https://routeveil.dev">Routeveil</a>, a transition engine for React Router.
                     </p>
                 </section>
 
@@ -53,6 +53,9 @@ function Home() {
 
                 <section className="section-container home-reveal" style={revealStyle(4)} aria-labelledby="more-heading">
                     <h2 id="more-heading">More</h2>
+                    <a href={CV} target="_blank" rel="noreferrer">
+                        Resume
+                    </a>
                     <RouteveilLink transition={{
                         name: "dissolve",
                         color: "var(--foreground-color)"

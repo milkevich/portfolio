@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import '../../shared.css'
 
-const PORTFOLIO_TIME_ZONE = 'America/New_York'
+const TIME_ZONE = 'America/New_York'
 
 function getPortfolioDateTime(date = new Date()) {
     return new Intl.DateTimeFormat('en-US', {
-        timeZone: PORTFOLIO_TIME_ZONE,
+        timeZone: TIME_ZONE,
         month: 'short',
         day: 'numeric',
         hour: 'numeric',
