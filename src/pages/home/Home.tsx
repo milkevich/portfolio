@@ -30,7 +30,7 @@ function Home() {
                         I design and build polished interfaces with React and TypeScript.
                         Currently a founding engineer at{' '}
                         <a href="https://flickhuntapp.com/">Flickhunt</a> and building{' '}
-                        <a href="https://routeveil.dev">Routeveil</a>, a transition engine for React Router.
+                        <a href="https://routeveil.dev">Routeveil</a>, a transitions engine for React Router.
                     </p>
                 </section>
 
