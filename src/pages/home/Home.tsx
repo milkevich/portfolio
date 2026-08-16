@@ -44,7 +44,7 @@ function Home() {
 
                     <p>
                         I design and build polished interfaces with React and TypeScript.
-                        Currently I'm a founding engineer at{' '}
+                        Currently a founding engineer at{' '}
 
                         <span
                             className="preview-link"
@@ -76,7 +76,7 @@ function Home() {
                             </div>
                         </span>
 
-                        {' '}and <br /> building{' '}
+                        {' '}and building{' '}
 
                         <span
                             className="preview-link"
