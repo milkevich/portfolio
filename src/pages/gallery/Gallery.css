@@ -70,7 +70,6 @@
     user-select: none;
     -webkit-user-select: none;
 
-    -webkit-overflow-scrolling: touch;
 }
 
 .gallery-viewport::-webkit-scrollbar {
@@ -99,7 +98,7 @@
     background: var(--gallery-background-color);
 
     pointer-events: auto;
-    will-change: transform;
+    contain: layout paint style;
 }
 
 .gallery-item {
@@ -116,7 +115,7 @@
 
     text-align: left;
     cursor: pointer;
-    transition: all 240ms ease;
+    transition: transform 240ms ease;
 
     -webkit-tap-highlight-color: transparent;
 }
@@ -149,6 +148,10 @@
     pointer-events: none;
 }
 
+video.gallery-media {
+    object-position: center;
+}
+
 .gallery-media-loaded {
     opacity: 1;
 }
@@ -168,8 +171,10 @@
     pointer-events: none;
 }
 
-.gallery-item:hover {
-    scale: 0.95;
+@media (hover: hover) and (pointer: fine) {
+    .gallery-item:hover {
+        transform: scale(0.95);
+    }
 }
 
 .gallery-zoom {
@@ -380,6 +385,6 @@
     }
 
     .gallery-item:hover {
-        scale: 1;
+        transform: none;
     }
 }

@@ -29,7 +29,7 @@ const ZOOM_STEP = 0.1
 
 const EDGE_PADDING = 50
 
-const DRAG_THRESHOLD = 0
+const DRAG_THRESHOLD = 4
 
 const SCROLL_LERP = 0.15
 const WHEEL_MULTIPLIER = 0.85
@@ -177,6 +177,39 @@ function GalleryMedia({
 }) {
     const [loaded, setLoaded] = useState(false)
     const [failed, setFailed] = useState(false)
+    const videoRef =
+        useRef<HTMLVideoElement>(null)
+
+    useEffect(() => {
+        const video = videoRef.current
+
+        if (!video || item.type !== "gif") {
+            return
+        }
+
+        if (!("IntersectionObserver" in window)) {
+            void video.play()
+            return
+        }
+
+        const observer =
+            new IntersectionObserver(
+                ([entry]) => {
+                    if (entry.isIntersecting) {
+                        void video.play()
+                    } else {
+                        video.pause()
+                    }
+                },
+                {
+                    rootMargin: "200px",
+                },
+            )
+
+        observer.observe(video)
+
+        return () => observer.disconnect()
+    }, [item.type])
 
     const className = [
         "gallery-media",
@@ -189,6 +222,24 @@ function GalleryMedia({
 
     if (failed) {
         return null
+    }
+
+    if (item.type === "gif") {
+        return (
+            <video
+                ref={videoRef}
+                className={className}
+                src={item.src}
+                aria-label={decorative ? undefined : item.alt}
+                aria-hidden={decorative}
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                onLoadedData={() => setLoaded(true)}
+                onError={() => setFailed(true)}
+            />
+        )
     }
 
     return (
@@ -383,6 +434,15 @@ function GalleryPage() {
     const canvasRef =
         useRef<HTMLDivElement>(null)
 
+    const zoomValueRef =
+        useRef<HTMLButtonElement>(null)
+
+    const zoomOutRef =
+        useRef<HTMLButtonElement>(null)
+
+    const zoomInRef =
+        useRef<HTMLButtonElement>(null)
+
     const positionedRef = useRef(false)
 
     const pointersRef = useRef(
@@ -416,6 +476,14 @@ function GalleryPage() {
 
     const zoomRef = useRef(zoom)
 
+    const viewportMetricsRef =
+        useRef({
+            width: 0,
+            height: 0,
+            left: 0,
+            top: 0,
+        })
+
     const [
         viewportSize,
         setViewportSize,
@@ -436,53 +504,45 @@ function GalleryPage() {
 
     const applyZoomStyles = useCallback(
         (nextZoom: number) => {
-            const viewport =
-                viewportRef.current
-
-            const space =
-                spaceRef.current
-
             const canvas =
                 canvasRef.current
 
-            if (
-                !viewport ||
-                !space ||
-                !canvas
-            ) {
+            if (!canvas) {
                 return
             }
-
-            space.style.width =
-                `${
-                    gallery.width *
-                        nextZoom +
-                    EDGE_PADDING * 2
-                }px`
-
-            space.style.height =
-                `${
-                    gallery.height *
-                        nextZoom +
-                    EDGE_PADDING * 2
-                }px`
-
-            canvas.style.left =
-                `${EDGE_PADDING}px`
-
-            canvas.style.top =
-                `${EDGE_PADDING}px`
-
-            canvas.style.width =
-                `${gallery.width}px`
-
-            canvas.style.height =
-                `${gallery.height}px`
 
             canvas.style.transform =
                 `scale(${nextZoom})`
         },
         [],
+    )
+
+    const updateZoomControls = useCallback(
+        (nextZoom: number) => {
+            const percentage =
+                Math.round(nextZoom * 100)
+
+            if (zoomValueRef.current) {
+                zoomValueRef.current.textContent =
+                    `${percentage}%`
+
+                zoomValueRef.current.setAttribute(
+                    "aria-label",
+                    `Reset zoom, current zoom ${percentage}%`,
+                )
+            }
+
+            if (zoomOutRef.current) {
+                zoomOutRef.current.disabled =
+                    nextZoom <= getMinZoom()
+            }
+
+            if (zoomInRef.current) {
+                zoomInRef.current.disabled =
+                    nextZoom >= MAX_ZOOM
+            }
+        },
+        [getMinZoom],
     )
 
     const getScrollBounds = useCallback(() => {
@@ -502,7 +562,7 @@ function GalleryPage() {
                 gallery.width *
                     zoomRef.current +
                     EDGE_PADDING * 2 -
-                    viewport.clientWidth,
+                    viewportMetricsRef.current.width,
             ),
 
             maxY: Math.max(
@@ -510,7 +570,7 @@ function GalleryPage() {
                 gallery.height *
                     zoomRef.current +
                     EDGE_PADDING * 2 -
-                    viewport.clientHeight,
+                    viewportMetricsRef.current.height,
             ),
         }
     }, [])
@@ -774,20 +834,20 @@ function GalleryPage() {
                 return
             }
 
-            const rect =
-                viewport.getBoundingClientRect()
+            const metrics =
+                viewportMetricsRef.current
 
             const anchorX =
                 anchorClientX === undefined
-                    ? viewport.clientWidth / 2
+                    ? metrics.width / 2
                     : anchorClientX -
-                      rect.left
+                      metrics.left
 
             const anchorY =
                 anchorClientY === undefined
-                    ? viewport.clientHeight / 2
+                    ? metrics.height / 2
                     : anchorClientY -
-                      rect.top
+                      metrics.top
 
             const paddingX =
                 EDGE_PADDING
@@ -838,6 +898,7 @@ function GalleryPage() {
             )
 
             syncPhysicsToViewport()
+            updateZoomControls(nextZoom)
             setZoom(nextZoom)
         },
         [
@@ -846,6 +907,7 @@ function GalleryPage() {
             getScrollBounds,
             stopPhysics,
             syncPhysicsToViewport,
+            updateZoomControls,
         ],
     )
 
@@ -865,6 +927,16 @@ function GalleryPage() {
         const initialZoom =
             zoomRef.current
 
+        const rect =
+            viewport.getBoundingClientRect()
+
+        viewportMetricsRef.current = {
+            width: viewport.clientWidth,
+            height: viewport.clientHeight,
+            left: rect.left,
+            top: rect.top,
+        }
+
         applyZoomStyles(initialZoom)
 
         viewport.scrollLeft =
@@ -882,10 +954,8 @@ function GalleryPage() {
             viewport.clientHeight / 2
 
         setViewportSize({
-            width:
-                viewport.clientWidth,
-            height:
-                viewport.clientHeight,
+            width: viewportMetricsRef.current.width,
+            height: viewportMetricsRef.current.height,
         })
 
         syncPhysicsToViewport()
@@ -903,11 +973,19 @@ function GalleryPage() {
         }
 
         const handleResize = () => {
+            const rect =
+                viewport.getBoundingClientRect()
+
+            viewportMetricsRef.current = {
+                width: viewport.clientWidth,
+                height: viewport.clientHeight,
+                left: rect.left,
+                top: rect.top,
+            }
+
             setViewportSize({
-                width:
-                    viewport.clientWidth,
-                height:
-                    viewport.clientHeight,
+                width: viewportMetricsRef.current.width,
+                height: viewportMetricsRef.current.height,
             })
 
             applyZoomStyles(
@@ -1080,6 +1158,14 @@ function GalleryPage() {
             event: Event,
         ) => {
             event.preventDefault()
+
+            // Modern mobile browsers report a pinch through pointer events as
+            // well as the legacy WebKit gesture events. Let the pointer path
+            // own that gesture so the zoom is not applied twice.
+            if (pointersRef.current.size >= 2) {
+                return
+            }
+
             startZoom =
                 zoomRef.current
         }
@@ -1088,6 +1174,10 @@ function GalleryPage() {
             event: Event,
         ) => {
             event.preventDefault()
+
+            if (pointersRef.current.size >= 2) {
+                return
+            }
 
             const gestureEvent =
                 event as Event & {
@@ -1274,12 +1364,6 @@ function GalleryPage() {
         const localY =
             midpoint.y - rect.top
 
-        const paddingX =
-            viewport.clientWidth / 2
-
-        const paddingY =
-            viewport.clientHeight / 2
-
         pinchRef.current = {
             distance,
             zoom: zoomRef.current,
@@ -1288,7 +1372,7 @@ function GalleryPage() {
                 (
                     viewport.scrollLeft +
                     localX -
-                    paddingX
+                    EDGE_PADDING
                 ) /
                 zoomRef.current,
 
@@ -1296,7 +1380,7 @@ function GalleryPage() {
                 (
                     viewport.scrollTop +
                     localY -
-                    paddingY
+                    EDGE_PADDING
                 ) /
                 zoomRef.current,
         }
@@ -1429,14 +1513,13 @@ function GalleryPage() {
             const midpoint =
                 getMidpoint(a, b)
 
-            const rect =
-                viewport.getBoundingClientRect()
-
             const localX =
-                midpoint.x - rect.left
+                midpoint.x -
+                viewportMetricsRef.current.left
 
             const localY =
-                midpoint.y - rect.top
+                midpoint.y -
+                viewportMetricsRef.current.top
 
             const nextZoom = clamp(
                 pinch.zoom *
@@ -1481,10 +1564,9 @@ function GalleryPage() {
             )
 
             syncPhysicsToViewport()
-            setZoom(nextZoom)
+            updateZoomControls(nextZoom)
 
             draggedRef.current = true
-            setDragging(true)
 
             return
         }
@@ -1559,7 +1641,14 @@ function GalleryPage() {
             maxY,
         )
 
-        startPhysicsLoop()
+        // A finger drag needs to track the finger exactly. Running it through
+        // the easing loop makes a quick direction change appear to freeze
+        // while the rendered position catches up with the previous target.
+        viewport.scrollLeft =
+            physics.targetX
+
+        viewport.scrollTop =
+            physics.targetY
 
         const now =
             performance.now()
@@ -1636,6 +1725,13 @@ function GalleryPage() {
         }
 
         pinchRef.current = null
+
+        if (wasPinching) {
+            // Keep React out of the hot pointer-move path. The DOM transform
+            // and visible percentage update on every frame; React only needs
+            // the final value once the gesture changes or ends.
+            setZoom(zoomRef.current)
+        }
 
         if (
             pointersRef.current.size === 1 &&
@@ -1793,10 +1889,27 @@ function GalleryPage() {
                 <div
                     ref={spaceRef}
                     className="gallery-space"
+                    style={{
+                        width:
+                            gallery.width *
+                                MAX_ZOOM +
+                            EDGE_PADDING * 2,
+                        height:
+                            gallery.height *
+                                MAX_ZOOM +
+                            EDGE_PADDING * 2,
+                    }}
                 >
                     <div
                         ref={canvasRef}
                         className="gallery-canvas"
+                        style={{
+                            left: EDGE_PADDING,
+                            top: EDGE_PADDING,
+                            width: gallery.width,
+                            height: gallery.height,
+                            transform: `scale(${zoom})`,
+                        }}
                     >
                         {gallery.items.map(
                             (item) => {
@@ -1878,6 +1991,7 @@ function GalleryPage() {
                 }
             >
                 <button
+                    ref={zoomOutRef}
                     type="button"
                     aria-label="Zoom out"
                     onClick={() =>
@@ -1895,6 +2009,7 @@ function GalleryPage() {
                 </button>
 
                 <button
+                    ref={zoomValueRef}
                     type="button"
                     className="gallery-zoom-value"
                     aria-label={`Reset zoom, current zoom ${Math.round(zoom * 100)}%`}
@@ -1911,6 +2026,7 @@ function GalleryPage() {
                 </button>
 
                 <button
+                    ref={zoomInRef}
                     type="button"
                     aria-label="Zoom in"
                     onClick={() =>
